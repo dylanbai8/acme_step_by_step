@@ -131,7 +131,7 @@ wacs.exe --target manual --host www.mydomain.com --validation filesystem --webro
 
 11.输入：3 （不需要额外储存证书）
 
-12.输入：1 （不需要额外的安装步骤）
+12.输入：1 （不需要额外运行自定义脚本 如定时重启web环境）
 
 13.输入：email@mydomain.com （设置续签提醒邮箱）
 
@@ -156,7 +156,14 @@ C:\ProgramData\win-acme
 特别注意：
 
 当自动续签完成后 由于win-acme并不能自动重启web环境 续签后的证书可能无法自动载入
-你可能需要使用其它方法定时重启web环境 以载入新签发的证书
+
+你可能需要使用 --script "installcert.cmd" 参数定时重启web环境 以载入新签发的证书（支持bat、exe、cmd）
+
+参考文档：
+
+https://github.com/PKISharp/win-acme/wiki/Apache-2.4-basic-usage
+
+https://github.com/PKISharp/win-acme/wiki/Install-Script
 
 官方文档：
 
@@ -170,8 +177,42 @@ https://github.com/PKISharp/win-acme/wiki/How-To-Run
 
 ## ▚ 证书的格式
 
---cert-file      格式：pem（Nginx、Apache、Caddy）或者 crt （Caddy）
+```
+--key-file       格式：.pem 或者 .key 密钥文件
 
---key-file       格式：pem（Nginx、Apache、Caddy）或者 key（Caddy）
+--fullchain-file 格式：.pem 或者 .crt 公钥文件
 
---fullchain-file 格式：pem（Apache）
+--cert-file      格式：.pem 或者 .crt 公钥文件 （Apache）
+```
+
+cert.pem: 服务端证书
+
+chain.pem: 浏览器需要的所有证书但不包括服务端证书，比如根证书和中间证书
+
+-fullchain.pem: 包括了cert.pem和chain.pem的内容
+
+-privkey.pem: 证书的私钥
+
+## 常用格式转换备记
+
+```
+Pem 转换为.CRT和.Key两种方法
+
+1.[重命名]
+
+我们可以直接把“fullchain.pem”重命名为“fullchain.crt"；
+
+把“privkey.pem”重命名为“privkey.key；
+
+无论是Linux还是Windows系统 重命名后就可以使用了
+
+2.[腾讯云ssl管理]
+
+可以用腾讯云SSL管理来实现 非常的简单
+
+登录腾讯云ssl管理（https://console.cloud.tencent.com/ssl）
+
+点击上传 fullchain 证书 和 密钥，再下载
+```
+
+
