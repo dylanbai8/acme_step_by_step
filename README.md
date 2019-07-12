@@ -96,8 +96,10 @@ https://github.com/PKISharp/win-acme/releases
 
 ## 命令行模式
 
+修改为自己的 域名、网站根目录、SSL储存路径、续签提醒邮箱
+
 ```
-wacs.exe --target manual --host www.mydomain.com --webroot C:\wwwroot --emailaddress email@mydomain.com --accepttos
+wacs.exe --target manual --host www.mydomain.com --validation filesystem --webroot C:\wwwroot --store pemfiles --pemfilespath C:\sslroot --emailaddress email@mydomain.com --accepttos --usedefaulttaskuser
 ```
 
 ## 可视化 UI 模式
@@ -113,13 +115,13 @@ wacs.exe --target manual --host www.mydomain.com --webroot C:\wwwroot --emailadd
 
 3.输入：www.mydomain.com （输入你的域名）
 
-4.输入：enter 直接回车 （设置为默认备注名称）
+4.输入：直接回车 （设置为默认备注名称）
 
 5.输入：5 （选择域名验证方式、常用验证方式选5、使用DNS TXT记录验证选2）
 
 6.输入：D:\wwwroot （输入网站根目录）
 
-7.输入：n （不复制默认web.config）
+7.输入：n （不复制默认web.config 环境为IIS时可尝试输入y）
 
 8.输入：2 （选择证书格式）
 
@@ -131,7 +133,7 @@ wacs.exe --target manual --host www.mydomain.com --webroot C:\wwwroot --emailadd
 
 12.输入：1 （不需要额外的安装步骤）
 
-13.输入：email@mydomain.com （设置提醒邮箱）
+13.输入：email@mydomain.com （设置续签提醒邮箱）
 
 14.输入：y （查看用户协议）
 
@@ -141,13 +143,17 @@ wacs.exe --target manual --host www.mydomain.com --webroot C:\wwwroot --emailadd
 
 
 至此所有步骤完成 不出问题的话ssl证书已经签发到指定的文件夹了
+```
 
 打开计划任务-计划任务程序库 查看是否存在以下任务：
 win-acme renew (acme-v02.api.letsencrypt.org)
 
 不要移动wacs.exe位置 否则续签会出错 程序配置文件储存路径在：
 C:\ProgramData\win-acme
-```
+
+特别注意：
+当自动续签完成后 由于win-acme并不能自动重启web环境 续签后的证书可能无法自动载入
+你可能需要使用其它方法定时重启web环境 以载入新签发的证书
 
 官方文档：
 
