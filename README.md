@@ -54,24 +54,24 @@ acme.sh --issue --dns dns_cf -d www.mydomain.com
 ## ▚ [Linux系统] 3.安装证书到指定路径 并开启自动续期（以caddy为例）
 
 ```
-acme.sh --install-cert -d www.mydomain.com --cert-file /wwwroot/ssl/mydomain.crt --key-file /wwwroot/ssl/mydomain.key --reloadcmd "systemctl restart caddy"
+acme.sh --install-cert -d www.mydomain.com --cert-file /wwwroot/ssl/mydomain.pem --key-file /wwwroot/ssl/mydomain.pem --reloadcmd "systemctl restart caddy"
 ```
 
 Apache示例：
 ```
-acme.sh --install-cert -d example.com \
---cert-file      /path/to/certfile/in/apache/cert.pem  \
---key-file       /path/to/keyfile/in/apache/key.pem  \
+acme.sh --install-cert -d www.mydomain.com \
+--cert-file      /path/to/certfile/in/apache/cert.pem \
+--key-file       /path/to/keyfile/in/apache/key.pem \
 --fullchain-file /path/to/fullchain/certfile/apache/fullchain.pem \
---reloadcmd     "service apache2 force-reload"
+--reloadcmd      "service apache2 force-reload"
 ```
 
 Nginx示例：
 ```
-acme.sh --install-cert -d example.com \
---key-file       /path/to/keyfile/in/nginx/key.pem  \
+acme.sh --install-cert -d www.mydomain.com \
+--key-file       /path/to/keyfile/in/nginx/key.pem \
 --fullchain-file /path/to/fullchain/nginx/cert.pem \
---reloadcmd     "service nginx force-reload"
+--reloadcmd      "service nginx force-reload"
 ```
 
 官方文档：
@@ -146,9 +146,11 @@ wacs.exe --target manual --host www.mydomain.com --validation filesystem --webro
 ```
 
 打开计划任务-计划任务程序库 查看是否存在以下任务：
+
 win-acme renew (acme-v02.api.letsencrypt.org)
 
 不要移动wacs.exe位置 否则续签会出错 程序配置文件储存路径在：
+
 C:\ProgramData\win-acme
 
 特别注意：
@@ -166,3 +168,10 @@ https://github.com/PKISharp/win-acme/wiki/How-To-Run
 
 使用DNS TXT记录方式验证 可能无法自动续签 因此不管是Linux还是Windows均不建议采用
 
+## ▚ 证书的格式
+
+--cert-file      格式：pem（Nginx、Apache、Caddy）或者 crt （Caddy）
+
+--key-file       格式：pem（Nginx、Apache、Caddy）或者 key（Caddy）
+
+--fullchain-file 格式：pem（Apache）
