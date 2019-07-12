@@ -94,7 +94,7 @@ https://github.com/PKISharp/win-acme/releases
 
 ## ▚ [windows系统] 签发证书 安装证书到指定路径 并开启自动续期
 
-## 命令行模式
+## 命令行 CMD 模式
 
 修改为自己的 域名、网站根目录、SSL储存路径、续签提醒邮箱
 
