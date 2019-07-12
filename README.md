@@ -92,7 +92,7 @@ https://github.com/PKISharp/win-acme/releases
 下载最新版本 如：win-acme.v2.0.8.356.zip
 ```
 
-## ▚ [windows系统] 签发证书
+## ▚ [windows系统] 签发证书 安装证书到指定路径 并开启自动续期
 
 ## 命令行模式
 
@@ -103,6 +103,9 @@ wacs.exe --target manual --host www.mydomain.com --webroot C:\wwwroot --emailadd
 ## 可视化 UI 模式
 
 可视化步骤比较繁琐 如下：
+
+右键-以管理员身份运行 wacs.exe
+
 ```
 1.输入：m （生成一个新的证书） 
 
@@ -110,13 +113,13 @@ wacs.exe --target manual --host www.mydomain.com --webroot C:\wwwroot --emailadd
 
 3.输入：www.mydomain.com （输入你的域名）
 
-4.输入：enter 直接回车 （设置备注名称）
+4.输入：enter 直接回车 （设置为默认备注名称）
 
 5.输入：5 （选择域名验证方式、常用验证方式选5、使用DNS TXT记录验证选2）
 
 6.输入：D:\wwwroot （输入网站根目录）
 
-7.输入：n （是否复制默认web.config）
+7.输入：n （不复制默认web.config）
 
 8.输入：2 （选择证书格式）
 
@@ -128,13 +131,13 @@ wacs.exe --target manual --host www.mydomain.com --webroot C:\wwwroot --emailadd
 
 12.输入：1 （不需要额外的安装步骤）
 
-13.输入：email@mydomain.com （提醒邮箱）
+13.输入：email@mydomain.com （设置提醒邮箱）
 
 14.输入：y （查看用户协议）
 
 15.输入：y （同意用户协议）
 
-16.输入：n （是否指定用户运行定时续签计划任务）
+16.输入：n （使用当前用户 无需指定用户运行定时续签计划任务）
 
 
 至此所有步骤完成 不出问题的话ssl证书已经签发到指定的文件夹了
