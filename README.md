@@ -1,12 +1,12 @@
 # 使用 acme 签发 Let's Encrypt SSl 证书 日常使用命令 备记
 
-## ▚ [Linux系统] 安装脚本
+## ▚ [Linux系统] 1.安装脚本
 
 ```
 curl https://get.acme.sh | sh
 ```
 
-## ▚ [Linux系统] 签发证书
+## ▚ [Linux系统] 2.签发证书
 
 ## 普通模式
 
@@ -51,7 +51,7 @@ acme.sh --issue --dns dns_cf -d www.mydomain.com
 
 （密钥储存位置：~/.acme.sh/account.conf）
 
-## ▚ [Linux系统] 安装证书到指定路径 并开启自动续期（以caddy为例）
+## ▚ [Linux系统] 3.安装证书到指定路径 并开启自动续期（以caddy为例）
 
 ```
 acme.sh --install-cert -d www.mydomain.com --cert-file /wwwroot/ssl/mydomain.crt --key-file /wwwroot/ssl/mydomain.key --reloadcmd "systemctl restart caddy"
@@ -84,7 +84,7 @@ https://github.com/Neilpang/acme.sh/wiki/How-to-issue-a-cert
 
 https://github.com/Neilpang/acme.sh/wiki/dnsapi
 
-## ▚ [windows系统] 安装软件
+## ▚ [windows系统] 1.安装软件
 
 ```
 https://github.com/PKISharp/win-acme/releases
@@ -92,7 +92,7 @@ https://github.com/PKISharp/win-acme/releases
 下载最新版本 如：win-acme.v2.0.8.356.zip
 ```
 
-## ▚ [windows系统] 签发证书 安装证书到指定路径 并开启自动续期
+## ▚ [windows系统] 2.签发证书 安装证书到指定路径 并开启自动续期
 
 ## 命令行 CMD 模式
 
@@ -152,6 +152,7 @@ win-acme renew (acme-v02.api.letsencrypt.org)
 C:\ProgramData\win-acme
 
 特别注意：
+
 当自动续签完成后 由于win-acme并不能自动重启web环境 续签后的证书可能无法自动载入
 你可能需要使用其它方法定时重启web环境 以载入新签发的证书
 
@@ -163,5 +164,5 @@ https://github.com/PKISharp/win-acme/wiki/Command-line
 
 https://github.com/PKISharp/win-acme/wiki/How-To-Run
 
-
+使用DNS TXT记录方式验证 可能无法自动续签 因此不管是Linux还是Windows均不建议采用
 
